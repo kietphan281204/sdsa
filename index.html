@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>bí mật hehehehe</title>
+	<!-- Google Fonts cho nét chữ thư pháp đẹp -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&display=swap"
+		rel="stylesheet">
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			font-family: 'Playfair Display', serif;
+			background-color: #000;
+		}
+
+		/* Trang bìa màu đỏ */
+		#cover-page {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(135deg, #d32f2f, #b71c1c);
+			/* Màu đỏ đậm chất Tết */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			z-index: 100;
+			transition: opacity 1.5s ease-in-out;
+			color: #fff;
+			text-align: center;
+		}
+
+		#cover-page h1 {
+			font-family: 'Dancing Script', cursive;
+			font-size: 5rem;
+			margin-bottom: 30px;
+			color: #FFD700;
+			/* Màu vàng kim */
+			text-transform: normal;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+			animation: pulse 2s infinite;
+		}
+
+		/* Style cho form đăng nhập */
+		#login-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 15px;
+			animation: fadeIn 2s ease-out;
+		}
+
+		#password {
+			padding: 12px 20px;
+			font-size: 1.2rem;
+			border: 2px solid #FFD700;
+			border-radius: 25px;
+			background: rgba(255, 255, 255, 0.9);
+			color: #b71c1c;
+			outline: none;
+			width: 250px;
+			text-align: center;
+			font-family: 'Playfair Display', serif;
+			transition: all 0.3s;
+		}
+
+		#password:focus {
+			box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+			transform: scale(1.05);
+		}
+
+		button {
+			padding: 10px 30px;
+			font-size: 1.2rem;
+			background: #FFD700;
+			color: #d32f2f;
+			border: none;
+			border-radius: 25px;
+			cursor: pointer;
+			font-weight: bold;
+			font-family: 'Playfair Display', serif;
+			transition: all 0.3s;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+		}
+
+		button:hover {
+			background: #fff;
+			transform: scale(1.1);
+			box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+		}
+
+		#error-message {
+			color: #fff;
+			background: rgba(0, 0, 0, 0.6);
+			padding: 8px 12px;
+			border-radius: 8px;
+			margin-top: 10px;
+			font-style: italic;
+			display: none;
+			max-width: 90%;
+			width: auto;
+			box-sizing: border-box;
+			text-align: center;
+			white-space: normal;
+			overflow-wrap: break-word;
+			word-break: break-word;
+			z-index: 120;
+		}
+
+		/* Hiệu ứng nhấp nháy chữ */
+		@keyframes pulse {
+			0% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.05);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+
+			100% {
+				font-size: 2rem;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes shake {
+
+			0%,
+			100% {
+				transform: translateX(0);
+			}
+
+			20% {
+				transform: translateX(-10px);
+			}
+
+			40% {
+				transform: translateX(10px);
+			}
+
+			60% {
+				transform: translateX(-10px);
+			}
+
+			80% {
+				transform: translateX(10px);
+			}
+		}
+
+		/* Video container */
+		#video-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			/* Luôn hiển thị ở dưới để sẵn sàng */
+		}
+
+		#myVideo {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.hidden {
+			opacity: 0 !important;
+			pointer-events: none;
+		}
+
+
+
+		
+
+		/* Responsive cho màn hình nhỏ */
+		@media (max-width: 768px) {
+			.horse-image {
+				width: 100px;
+			}
+
+			.banner-text {
+				font-size: 1.5rem;
+				padding: 15px 25px;
+				margin-left: 10px;
+			}
+
+			#horse-banner {
+				top: 5%;
+			}
+
+			#cover-page h1 {
+				font-size: 3rem;
+			}
+
+			#new-year-message {
+				font-size: 1rem !important;
+				padding: 20px 30px !important;
+				width: 90% !important;
+			}
+		}
+
+		#new-year-message.show {
+			opacity: 1;
+			animation: popUp 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+		}
+
+		@keyframes popUp {
+			0% {
+				transform: translate(-50%, -50%) scale(0.5);
+				opacity: 0;
+			}
+
+			100% {
+				transform: translate(-50%, -50%) scale(1);
+				opacity: 1;
+			}
+		}
+
+		/* Nút tiếp tục */
+		#continue-btn {
+			position: fixed;
+			bottom: 10%;
+			left: 50%;
+			transform: translateX(-50%);
+			padding: 15px 40px;
+			font-size: 1.3rem;
+			background: linear-gradient(135deg, #FFD700, #FFA500);
+			color: #d32f2f;
+			border: 2px solid #fff;
+			border-radius: 30px;
+			cursor: pointer;
+			font-weight: bold;
+			font-family: 'Dancing Script', cursive;
+			z-index: 201;
+			opacity: 0;
+			pointer-events: none;
+			transition: all 0.3s;
+			box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+		}
+
+		#continue-btn.show {
+			opacity: 1;
+			pointer-events: auto;
+			animation: bounce 2s infinite;
+		}
+
+		#continue-btn:hover {
+			background: linear-gradient(135deg, #fff, #FFD700);
+			transform: translateX(-50%) scale(1.1);
+			box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+		}
+
+		@keyframes bounce {
+
+			0%,
+			20%,
+			50%,
+			80%,
+			100% {
+				transform: translateX(-50%) translateY(0);
+			}
+
+			40% {
+				transform: translateX(-50%) translateY(-10px);
+			}
+
+			60% {
+				transform: translateX(-50%) translateY(-5px);
+			}
+		}
+
+		/* Trang mới với 2 ô nhập */
+		#new-page {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(135deg, #1a1a2e, #16213e);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			z-index: 300;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 1s ease-in-out;
+		}
+
+		#new-page.show {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		#new-page h2 {
+			font-family: 'Dancing Script', cursive;
+			font-size: 3rem;
+			color: #FFD700;
+			margin-bottom: 40px;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+		}
+
+		.input-container {
+			display: flex;
+			flex-direction: column;
+			gap: 25px;
+			width: 80%;
+			max-width: 600px;
+		}
+
+		.input-wrapper {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.input-wrapper label {
+			font-family: 'Playfair Display', serif;
+			font-size: 1.2rem;
+			color: #FFD700;
+			font-weight: bold;
+		}
+
+		.input-wrapper input,
+		.input-wrapper textarea {
+			padding: 15px 20px;
+			font-size: 1.1rem;
+			border: 2px solid #FFD700;
+			border-radius: 15px;
+			background: rgba(255, 255, 255, 0.9);
+			color: #1a1a2e;
+			outline: none;
+			font-family: 'Playfair Display', serif;
+			transition: all 0.3s;
+		}
+
+		.input-wrapper textarea {
+			min-height: 120px;
+			resize: vertical;
+		}
+
+		.input-wrapper input:focus,
+		.input-wrapper textarea:focus {
+			box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+			transform: scale(1.02);
+			border-color: #FFA500;
+		}
+
+		.send-btn {
+			margin-top: 15px;
+			padding: 15px 45px;
+			font-size: 1.3rem;
+			background: linear-gradient(135deg, #FFD700, #FFA500);
+			color: #1a1a2e;
+			border: 2px solid #FFD700;
+			border-radius: 25px;
+			cursor: pointer;
+			font-weight: bold;
+			font-family: 'Dancing Script', cursive;
+			transition: all 0.3s;
+			box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+		}
+
+		.send-btn:hover {
+			background: linear-gradient(135deg, #fff, #FFD700);
+			transform: scale(1.05);
+			box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+		}
+
+		.send-hint {
+			font-size: 0.9rem;
+			color: rgba(255, 215, 0, 0.8);
+			margin-top: 10px;
+			text-align: center;
+		}
+
+		.form-status {
+			font-size: 1rem;
+			margin-top: 12px;
+			text-align: center;
+			min-height: 1.5em;
+		}
+
+		.form-status.success {
+			color: #7fff7f;
+		}
+
+		.form-status.error {
+			color: #ff7f7f;
+		}
+
+		.send-btn:disabled {
+			opacity: 0.7;
+			cursor: not-allowed;
+			transform: none;
+		}
+
+		@media (max-width: 768px) {
+			#new-page h2 {
+				font-size: 2rem;
+			}
+
+			.input-container {
+				width: 90%;
+			}
+
+			#continue-btn {
+				font-size: 1.1rem;
+				padding: 12px 30px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Trang bìa -->
+	<div id="cover-page">
+		<h1>Mk là tên của ní á </h1>
+
+		<div id="login-container">
+			<input type="text" id="password" placeholder="mk là tên của ní á..." />
+			<button id="submit-btn">Mở Quà</button>
+			<div id="error-message">Mật khẩu 0 sai tr đã nói tên ní ồi mà </div>
+		</div>
+	</div>
+
+	<!-- Video Background -->
+	
+	<!-- Con ngựa kéo banner -->
+	<div id="horse-banner">
+
+
+		
+	</div>
+
+	<!-- Tin nhắn chúc mừng hiện sau 1 giây -->
+	<div id="new-year-message"></div>
+
+	<!-- Nút tiếp tục -->
+	<button id="continue-btn">Bấm vô để đc lì xì</button>
+
+	<!-- Trang mới với 2 ô nhập - gửi qua Formspree -->
+	<div id="new-page">
+		<h2>Ngân muốn đc lì xì không nè </h2>
+		<form id="lixi-form" class="input-container">
+			<div class="input-wrapper">
+				<label for="input1">Ngân nhập số tài khoảng ngân hàng(tên ngân hàng) hay momo điều được nhé :</label>
+				<input type="text" id="input1" name="tai_khoan_momo ngân" placeholder="thật ko đùa he">
+			</div>
+			<div class="input-wrapper">
+				<label for="input2">Ngân chúc tết toi lại đi chứ trời</label>
+				<textarea id="input2" name="Ngân chúc tết" placeholder="Nhập nội dung của bạn..."></textarea>
+			</div>
+			<button type="submit" id="send-btn" class="send-btn">Gửi</button>
+	
+			<p id="form-status" class="form-status"></p>
+		</form>
+	</div>
+
+	<!-- Nhạc nền -->
+	<audio id="bgMusic" loop>
+		<source src="nhactet.mp3" type="audio/mpeg">
+	</audio>
+
+	<script>
+		const coverPage = document.getElementById('cover-page');
+		const myVideo = document.getElementById('myVideo');
+		const bgMusic = document.getElementById('bgMusic');
+		const passwordInput = document.getElementById('password');
+		const submitBtn = document.getElementById('submit-btn');
+		const errorMessage = document.getElementById('error-message');
+		const horseBanner = document.getElementById('horse-banner');
+
+		// Mật khẩu quy định (chấp nhận 3 
+		const VALID_PASSWORDS = ["ngân", "Ngân", "ngan","Ngan","NGÂN"];
+
+		function checkPassword() {
+			const input = passwordInput.value;
+			if (VALID_PASSWORDS.includes(input)) {
+				// Mật khẩu đúng — mở tab ảnh ngay trong handler để tránh bị chặn
+				const newTab = window.open('image.html', '_blank');
+				if (!newTab) {
+					// Bị chặn: phát nhạc rồi redirect cùng tab sau 0.5s
+					startCelebration();
+					setTimeout(() => { window.location.href = 'image.html'; }, 500);
+				} else {
+					// Mở được tab mới: phát nhạc ở trang hiện tại
+					startCelebration();
+				}
+			} else {
+				// Mật khẩu sai
+				errorMessage.style.display = "block";
+				errorMessage.style.animation = "shake 0.5s ease-in-out";
+				setTimeout(() => {
+					errorMessage.style.animation = "";
+				}, 500);
+			}
+		}
+
+
+		const fullMessage =
+			`
+`;
+
+		function typeWriterEffect() {
+			const messageContainer = document.getElementById('new-year-message');
+			messageContainer.innerHTML = ''; // Đảm bảo rỗng
+
+			// Xử lý xuống dòng: Thay \n bằng dấu hiệu đặc biệt rồi split
+			// Thêm khoảng trắng quanh \n để split tách ra được
+			const processedText = fullMessage.replace(/\n/g, " <br> ");
+			const words = processedText.split(' ');
+
+			let index = 0;
+			const speed = 300; // Tốc độ chạy chữ (ms) - Đã tăng từ 150ms lên 300ms để chậm hơn
+
+			function type() {
+				if (index < words.length) {
+					let word = words[index];
+					if (word === "<br>") {
+						messageContainer.innerHTML += "<br>";
+					} else if (word !== "") { // Bỏ qua chuỗi rỗng do split
+						messageContainer.innerHTML += word + " ";
+					}
+					index++;
+					setTimeout(type, speed);
+				} else {
+					// Khi chữ chạy xong, hiện nút tiếp tục
+					showContinueButton();
+				}
+			}
+			type();
+		}
+
+		function showContinueButton() {
+			const continueBtn = document.getElementById('continue-btn');
+			setTimeout(() => {
+				continueBtn.classList.add('show');
+			}, 500); // Hiện nút sau 0.5 giây khi chữ chạy xong
+		}
+
+		function showNewPage() {
+			const newPage = document.getElementById('new-page');
+			const continueBtn = document.getElementById('continue-btn');
+			const message = document.getElementById('new-year-message');
+
+			// Ẩn nút và tin nhắn
+			continueBtn.classList.remove('show');
+			message.classList.remove('show');
+
+			// Hiện trang mới
+			setTimeout(() => {
+				newPage.classList.add('show');
+			}, 300);
+		}
+
+		function startCelebration() {
+			// 1. Phát nhạc
+			bgMusic.play().catch(console.error);
+
+			// 2. Phát video (ở layer dưới)
+			myVideo.play().catch(console.error);
+			myVideo.muted = false; // Bật tiếng video nếu cần
+
+			// 3. Ẩn trang bìa từ từ để lộ video
+			coverPage.classList.add('hidden');
+
+			// 4. Hiện con ngựa chạy kéo banner
+			horseBanner.classList.add('active');
+
+			// 5. Hiện tin nhắn sau 1 giây
+			setTimeout(() => {
+				const message = document.getElementById('new-year-message');
+				message.classList.add('show');
+				typeWriterEffect();
+			}, 1000);
+
+			// Xóa trang bìa khỏi DOM sau khi animation xong
+			setTimeout(() => {
+				coverPage.style.display = 'none';
+			}, 1500);
+		}
+
+		// Sự kiện click nút
+		submitBtn.addEventListener('click', checkPassword);
+
+		// Sự kiện nhấn Enter
+		passwordInput.addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				checkPassword();
+			}
+		});
+
+		// Xóa thông báo lỗi khi nhập lại
+		passwordInput.addEventListener('input', () => {
+			errorMessage.style.display = 'none';
+		});
+
+		// Sự kiện click nút tiếp tục
+		document.getElementById('continue-btn').addEventListener('click', showNewPage);
+
+		// Formspree: thay YOUR_FORM_ID bằng Form ID lấy từ https://formspree.io (form gửi đến kietphan28122004@gmail.com)
+		const FORMSPREE_FORM_ID = 'xrepvazp';
+		const form = document.getElementById('lixi-form');
+		const formStatus = document.getElementById('form-status');
+		const sendBtn = document.getElementById('send-btn');
+
+		form.addEventListener('submit', async function (e) {
+			e.preventDefault();
+			formStatus.textContent = '';
+			formStatus.className = 'form-status';
+			sendBtn.disabled = true;
+			sendBtn.textContent = 'Đang gửi...';
+
+			try {
+				const res = await fetch('https://formspree.io/f/' + FORMSPREE_FORM_ID, {
+					method: 'POST',
+					body: new FormData(form),
+					headers: { 'Accept': 'application/json' }
+				});
+				const data = await res.json().catch(() => ({}));
+				if (res.ok && (data.ok !== false)) {
+					formStatus.textContent = 'Đã gửi! Bạn sẽ nhận email tại kietphan28122004@gmail.com.';
+					formStatus.className = 'form-status success';
+					form.reset();
+				} else {
+					formStatus.textContent = 'Gửi thất bại. Kiểm tra Form ID hoặc thử lại.';
+					formStatus.className = 'form-status error';
+				}
+			} catch (err) {
+				formStatus.textContent = 'Lỗi kết nối. Kiểm tra Formspree Form ID và thử lại.';
+				formStatus.className = 'form-status error';
+			}
+			sendBtn.disabled = false;
+			sendBtn.textContent = 'Gửi';
+		});
+	</script>
+</body>
+
+</html>
